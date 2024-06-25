@@ -98,7 +98,7 @@ class Player:
         for item in self._bullets:
             item.CheckBoundary()
     def RemoveProjectile(self, objectToRemove):
-        self._wall.remove(objectToRemove)
+        self._bullets.remove(objectToRemove)
     def Move(self):
         if clock.get_fps()>0:
             self._speed = 500/clock.get_fps()
