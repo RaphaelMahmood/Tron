@@ -8,7 +8,7 @@ p2_score = 0
 # pygame setup
 pygame.init()
 def On():
-    if Bigga._alive == True and Digga._alive == True:
+    if Bigga._alive and Digga._alive:
         return True
     else:
         return False
@@ -69,20 +69,18 @@ class Player:
                     if victory_text_pos == 0:
                         victory_text_pos = [Digga._position.x, Digga._position.y]
                     draw_text("Player 2 Victory", text_font, 'white', victory_text_pos[0], victory_text_pos[1])
-                    global p2_score 
-                    p2_score += 1
-                    if pygame.time.get_ticks() > death + 1000:
-                        Reset(Digga)
-                        Reset(Bigga)
             elif self._player == 2 and Digga._alive == True:      
                     if victory_text_pos == 0:
                         victory_text_pos = [Bigga._position.x, Bigga._position.y]
                     draw_text("Player 1 Victory", text_font, 'white', victory_text_pos[0], victory_text_pos[1])
-                    global p1_score 
-                    p1_score += 1
-                    if pygame.time.get_ticks() > death + 1000:
-                        Reset(Digga)
-                        Reset(Bigga)
+            if pygame.time.get_ticks() > death + 1000:
+                Reset(Digga)
+                Reset(Bigga)
+        if Digga._alive == False and Bigga._alive == False:
+            Reset(Digga)
+            Reset(Bigga)
+
+
     
     
     def Shoot(self):
@@ -155,6 +153,12 @@ class Projectile:
                 death = pygame.time.get_ticks()
                 player._alive = False
                 player.RemoveWall()
+                if player == Digga:
+                    global p2_score 
+                    p2_score += 1
+                elif player == Bigga:
+                    global p1_score 
+                    p1_score += 1
                 
                 
     
@@ -222,8 +226,8 @@ def ResetInput():
             Reset(Bigga)
 
 def DrawScore():
-    draw_text(f"Player 1 Score: {p1_score}", text_font, 'white', screen.get_width() / 2-600, 80)
-    draw_text(f"Player 2 Score: {p2_score}", text_font, 'white', screen.get_width() / 2+350, 80)
+    draw_text(f"P1 Score: {p1_score}", text_font, 'white', screen.get_width() / 2-600, 80)
+    draw_text(f"P2 Score: {p2_score}", text_font, 'white', screen.get_width() / 2+400, 80)
 
     
 
